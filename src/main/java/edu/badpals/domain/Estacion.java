@@ -3,7 +3,7 @@ package edu.badpals.domain;
 public class Estacion {
     public int id;
     public String direccion;
-    private Anclajes anclajes;
+    private final Anclajes anclajes;
 
     public Estacion(int id, String direccion, int numAnclajes) {
         this.id = id;

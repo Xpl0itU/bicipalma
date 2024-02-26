@@ -1,7 +1,7 @@
 package edu.badpals.domain;
 
 public class Anclajes {
-    private Anclaje[] anclajes;
+    private final Anclaje[] anclajes;
 
     Anclajes(int numAnclajes) {
         anclajes = new Anclaje[numAnclajes];
@@ -60,11 +60,11 @@ public class Anclajes {
                 return i;
             }
         }
-        return 0;
+        return -1;
     }
 
     @Override
     public String toString() {
-        return "Numero de anclajes: " + Integer.toString(anclajes().length);
+        return "Numero de anclajes: " + anclajes().length;
     }
 }
