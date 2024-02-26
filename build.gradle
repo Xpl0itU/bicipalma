@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'application'
 }
 
 group = 'edu.badpals'
@@ -16,4 +17,18 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+application {
+    mainClassName = 'edu.badpals.Main'
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class' : 'edu.badpals.Main',
+                'Package-Title' : 'Bicipalma',
+                'Package-Version': '1.0',
+                'Package-Vendor' : 'davidg@cifpfbmol.eu',
+                'Specification-Title' : 'Examen BiciPalma'
+    }
 }
