@@ -1,5 +1,8 @@
 package edu.badpals.domain;
 
+import java.util.Arrays;
+import java.util.stream.IntStream;
+
 public class Estacion {
     public int id;
     public String direccion;
@@ -40,23 +43,18 @@ public class Estacion {
     }
 
     public int anclajesLibres() {
-        int anclajesLibres = 0;
-        for (Anclaje anclaje : anclajes()) {
-            if (!anclaje.isOcupado()) {
-                anclajesLibres += 1;
-            }
-        }
-        return anclajesLibres;
+        return (int) Arrays.stream(anclajes()).filter(anclaje -> !anclaje.isOcupado()).count();
     }
 
     public void anclarBicicleta(Bicicleta bici) {
-        for (int i = 0; i < anclajes().length; ++i) {
-            if (!anclajes()[i].isOcupado()) {
-                anclajes()[i].anclarBici(bici);
-                System.out.printf("bicicleta: %d anclada en el anclaje: %d\n", bici.getId(), i + 1);
-                return;
-            }
+        int freeIndex = IntStream.range(0, anclajes().length)
+                .filter(i -> !anclajes()[i].isOcupado())
+                .findAny().orElseGet(() -> -1);
+        if (freeIndex < 0) {
+            return;
         }
+        anclajes()[freeIndex].anclarBici(bici);
+        System.out.printf("bicicleta: %d anclada en el anclaje: %d\n", bici.getId(), freeIndex + 1);
     }
 
     public boolean leerTarjetaUsuario(TarjetaUsuario tarjetaUsuario) {
@@ -68,12 +66,16 @@ public class Estacion {
             return;
         }
 
-        for (Anclaje anclaje : anclajes()) {
-            if (anclaje.isOcupado()) {
-                anclaje.liberarBici();
-                return;
-            }
+        int freeIndex = IntStream.range(0, anclajes().length)
+                .filter(i -> anclajes()[i].isOcupado())
+                .findAny().orElseGet(() -> -1);
+        if (freeIndex < 0) {
+            System.out.println("No hay anclajes con bicicletas!");
+            return;
         }
+
+        System.out.println("bicicleta retirada: " + anclajes()[freeIndex].getBici().getId() + " del anclaje: " + (freeIndex + 1));
+        anclajes()[freeIndex].liberarBici();
     }
 
     public void consultarAnclajes() {

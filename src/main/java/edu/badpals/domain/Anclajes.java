@@ -1,5 +1,7 @@
 package edu.badpals.domain;
 
+import java.util.stream.IntStream;
+
 public class Anclajes {
     private final Anclaje[] anclajes;
 
@@ -55,12 +57,9 @@ public class Anclajes {
     }
 
     int seleccionarAnclaje() {
-        for (int i = 0; i < anclajes().length; ++i) {
-            if(!anclajes()[i].isOcupado()) {
-                return i;
-            }
-        }
-        return -1;
+        return IntStream.range(0, anclajes().length)
+                .filter(i -> !anclajes()[i].isOcupado())
+                .findAny().orElseGet(() -> -1);
     }
 
     @Override
