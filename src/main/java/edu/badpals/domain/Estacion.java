@@ -34,7 +34,9 @@ public class Estacion {
     }
 
     public void consultarEstacion() {
-        System.out.printf("Estación %s (id: %d) (%d anclajes)\n", direccion, id, numAnclajes());
+        System.out.println("id: " + getId());
+        System.out.println("direccion: " + getDireccion());
+        System.out.println("numeroAnclajes: " + numAnclajes());
     }
 
     public int anclajesLibres() {
@@ -48,9 +50,10 @@ public class Estacion {
     }
 
     public void anclarBicicleta(Bicicleta bici) {
-        for (Anclaje anclaje : anclajes()) {
-            if (!anclaje.isOcupado()) {
-                anclaje.anclarBici(bici);
+        for (int i = 0; i < anclajes().length; ++i) {
+            if (!anclajes()[i].isOcupado()) {
+                anclajes()[i].anclarBici(bici);
+                System.out.printf("bicicleta: %d anclada en el anclaje: %d\n", bici.getId(), i + 1);
                 return;
             }
         }
@@ -74,8 +77,8 @@ public class Estacion {
     }
 
     public void consultarAnclajes() {
-        for (Anclaje anclaje : anclajes()) {
-            System.out.println(anclaje.toString());
+        for (int i = 0; i < anclajes().length; ++i) {
+            System.out.println("Anclaje " + (i + 1) + " " + (anclajes()[i].isOcupado() ? anclajes()[i].getBici().getId() : "libre"));
         }
     }
 }
