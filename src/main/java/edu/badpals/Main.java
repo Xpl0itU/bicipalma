@@ -1,7 +1,7 @@
 package edu.badpals;
 
-import edu.badpals.domain.Estacion;
 import edu.badpals.domain.Bicicleta;
+import edu.badpals.domain.Estacion;
 import edu.badpals.domain.TarjetaUsuario;
 
 public class Main {
@@ -29,12 +29,12 @@ public class Main {
 
         int[] bicicletas = {291, 292, 293, 294};
 
-        for ( int id: bicicletas ){
+        for (int id : bicicletas) {
             Bicicleta bicicleta = new Bicicleta(id);
             estacion.anclarBicicleta(bicicleta);
         }
 
-        System.out.println("anclajesLibres tras generar "+ bicicletas.length + " bicis: " + estacion.anclajesLibres());
+        System.out.println("anclajesLibres tras generar " + bicicletas.length + " bicis: " + estacion.anclajesLibres());
 
         /* caso TEST consultar bicicletas ancladas */
 
@@ -48,7 +48,7 @@ public class Main {
 
         TarjetaUsuario tarjetaUsuario = new TarjetaUsuario("000456789", true);
 
-        System.out.println("¿tarjeta de usuario activada? (true/false): " + estacion.leerTarjetaUsuario(tarjetaUsuario) );
+        System.out.println("¿tarjeta de usuario activada? (true/false): " + estacion.leerTarjetaUsuario(tarjetaUsuario));
 
         estacion.retirarBicicleta(tarjetaUsuario);
 

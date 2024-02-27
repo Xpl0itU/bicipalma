@@ -5,7 +5,8 @@ public class Anclaje {
     private boolean ocupado = false;
     private Bicicleta bici = new Bicicleta(0);
 
-    Anclaje() {}
+    Anclaje() {
+    }
 
     boolean isOcupado() {
         return ocupado;
@@ -16,7 +17,7 @@ public class Anclaje {
     }
 
     void anclarBici(Bicicleta bici) {
-        if(bici != null) {
+        if (bici != null) {
             this.bici = bici;
             ocupado = true;
         }

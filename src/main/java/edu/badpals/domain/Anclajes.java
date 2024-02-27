@@ -58,9 +58,7 @@ public class Anclajes {
     }
 
     OptionalInt seleccionarAnclaje() {
-        return IntStream.range(0, anclajes().length)
-                .filter(i -> !anclajes()[i].isOcupado())
-                .findAny();
+        return IntStream.range(0, anclajes().length).filter(i -> !anclajes()[i].isOcupado()).findAny();
     }
 
     @Override
