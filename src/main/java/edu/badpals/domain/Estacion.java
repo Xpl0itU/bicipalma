@@ -36,10 +36,12 @@ public class Estacion {
         return anclajes().length;
     }
 
+    private String humanizeIndex(int index) {
+        return Integer.toString(index + 1);
+    }
+
     public void consultarEstacion() {
-        System.out.println("id: " + getId());
-        System.out.println("direccion: " + getDireccion());
-        System.out.println("numeroAnclajes: " + numAnclajes());
+        System.out.printf("id: %d\ndireccion: %s\nnumeroAnclajes: %d\n",getId(), getDireccion(), numAnclajes());
     }
 
     public int anclajesLibres() {
@@ -52,7 +54,7 @@ public class Estacion {
             return;
         }
         anclajes()[freeIndex.getAsInt()].anclarBici(bici);
-        System.out.printf("bicicleta: %d anclada en el anclaje: %d\n", bici.getId(), freeIndex.getAsInt() + 1);
+        System.out.printf("bicicleta: %d anclada en el anclaje: %s\n", bici.getId(), humanizeIndex(freeIndex.getAsInt()));
     }
 
     public boolean leerTarjetaUsuario(TarjetaUsuario tarjetaUsuario) {
@@ -70,13 +72,13 @@ public class Estacion {
             return;
         }
 
-        System.out.printf("bicicleta retirada: %d del anclaje: %d", anclajes()[freeIndex.getAsInt()].getBici().getId(), freeIndex.getAsInt() + 1);
+        System.out.printf("bicicleta retirada: %d del anclaje: %s\n", anclajes()[freeIndex.getAsInt()].getBici().getId(), humanizeIndex(freeIndex.getAsInt()));
         anclajes()[freeIndex.getAsInt()].liberarBici();
     }
 
     public void consultarAnclajes() {
         for (int i = 0; i < anclajes().length; ++i) {
-            System.out.println("Anclaje " + (i + 1) + " " + (anclajes()[i].isOcupado() ? anclajes()[i].getBici().getId() : "libre"));
+            System.out.printf("Anclaje %s: %s\n", humanizeIndex(i), (anclajes()[i].isOcupado() ? anclajes()[i].getBici().getId() : "libre"));
         }
     }
 }
