@@ -25,7 +25,7 @@ public class Estacion {
 
     @Override
     public String toString() {
-        return String.format("id: %d %ndireccion: %s %nanclajes: %s", getId(), getDireccion(), numAnclajes());
+        return String.format("id: %d\ndireccion: %s\nanclajes: %d", getId(), getDireccion(), numAnclajes());
     }
 
     private Anclaje[] anclajes() {
@@ -41,7 +41,7 @@ public class Estacion {
     }
 
     public void consultarEstacion() {
-        System.out.printf("id: %d\ndireccion: %s\nnumeroAnclajes: %d\n",getId(), getDireccion(), numAnclajes());
+        System.out.println(this);
     }
 
     public int anclajesLibres() {
