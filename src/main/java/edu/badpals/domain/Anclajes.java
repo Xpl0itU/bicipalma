@@ -1,5 +1,6 @@
 package edu.badpals.domain;
 
+import java.util.OptionalInt;
 import java.util.stream.IntStream;
 
 public class Anclajes {
@@ -56,10 +57,10 @@ public class Anclajes {
         return anclajes()[indexAnclaje].getBici();
     }
 
-    int seleccionarAnclaje() {
+    OptionalInt seleccionarAnclaje() {
         return IntStream.range(0, anclajes().length)
                 .filter(i -> !anclajes()[i].isOcupado())
-                .findAny().orElseGet(() -> -1);
+                .findAny();
     }
 
     @Override

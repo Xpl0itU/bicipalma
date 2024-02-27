@@ -1,12 +1,13 @@
 package edu.badpals.domain;
 
 import java.util.Arrays;
+import java.util.OptionalInt;
 import java.util.stream.IntStream;
 
 public class Estacion {
+    private final Anclajes anclajes;
     public int id;
     public String direccion;
-    private final Anclajes anclajes;
 
     public Estacion(int id, String direccion, int numAnclajes) {
         this.id = id;
@@ -24,8 +25,7 @@ public class Estacion {
 
     @Override
     public String toString() {
-        return String.format("id: %d %ndireccion: %s %nanclajes: %s",
-                getId(), getDireccion(), numAnclajes());
+        return String.format("id: %d %ndireccion: %s %nanclajes: %s", getId(), getDireccion(), numAnclajes());
     }
 
     private Anclaje[] anclajes() {
@@ -47,14 +47,12 @@ public class Estacion {
     }
 
     public void anclarBicicleta(Bicicleta bici) {
-        int freeIndex = IntStream.range(0, anclajes().length)
-                .filter(i -> !anclajes()[i].isOcupado())
-                .findAny().orElseGet(() -> -1);
-        if (freeIndex < 0) {
+        OptionalInt freeIndex = IntStream.range(0, anclajes().length).filter(i -> !anclajes()[i].isOcupado()).findAny();
+        if (freeIndex.isEmpty()) {
             return;
         }
-        anclajes()[freeIndex].anclarBici(bici);
-        System.out.printf("bicicleta: %d anclada en el anclaje: %d\n", bici.getId(), freeIndex + 1);
+        anclajes()[freeIndex.getAsInt()].anclarBici(bici);
+        System.out.printf("bicicleta: %d anclada en el anclaje: %d\n", bici.getId(), freeIndex.getAsInt() + 1);
     }
 
     public boolean leerTarjetaUsuario(TarjetaUsuario tarjetaUsuario) {
@@ -66,16 +64,14 @@ public class Estacion {
             return;
         }
 
-        int freeIndex = IntStream.range(0, anclajes().length)
-                .filter(i -> anclajes()[i].isOcupado())
-                .findAny().orElseGet(() -> -1);
-        if (freeIndex < 0) {
+        OptionalInt freeIndex = IntStream.range(0, anclajes().length).filter(i -> anclajes()[i].isOcupado()).findAny();
+        if (freeIndex.isEmpty()) {
             System.out.println("No hay anclajes con bicicletas!");
             return;
         }
 
-        System.out.println("bicicleta retirada: " + anclajes()[freeIndex].getBici().getId() + " del anclaje: " + (freeIndex + 1));
-        anclajes()[freeIndex].liberarBici();
+        System.out.printf("bicicleta retirada: %d del anclaje: %d", anclajes()[freeIndex.getAsInt()].getBici().getId(), freeIndex.getAsInt() + 1);
+        anclajes()[freeIndex.getAsInt()].liberarBici();
     }
 
     public void consultarAnclajes() {
