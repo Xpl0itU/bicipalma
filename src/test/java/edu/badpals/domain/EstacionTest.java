@@ -9,7 +9,7 @@ public class EstacionTest {
     public void constructorEstacionTest() {
         Estacion estacion = new Estacion(1, "Manacor", 6);
         assertNotNull(estacion);
-        assertEquals("id: 1 \ndireccion: Manacor \nanclajes: 6", estacion.toString());
+        assertEquals("id: 1\ndireccion: Manacor\nanclajes: 6", estacion.toString());
     }
 
     @Test
